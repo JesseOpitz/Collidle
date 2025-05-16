@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,28 +22,24 @@
         <span class="hud-label">Dark Energy:</span>
         <span id="dark-energy-display">0</span>
       </div>
-    </header>
+    </header><!-- Game Canvas -->
+<main id="game-space">
+  <canvas id="space-canvas" width="800" height="600"></canvas>
+  <button id="fire-btn" title="Tap to launch a particle">Launch Particle</button>
+  <button id="toggle-upgrades">Upgrades</button>
+</main>
 
-    <!-- Game Canvas -->
-    <main id="game-space">
-      <canvas id="space-canvas" width="800" height="600"></canvas>
-      <button id="fire-btn" title="Tap to launch a particle">Launch Particle</button>
-    </main>
+<!-- Upgrades -->
+<aside id="upgrade-panel">
+  <h2>Upgrades</h2>
+  <ul id="upgrade-list">
+    <!-- JS-rendered items -->
+  </ul>
+</aside>
 
-    <!-- Upgrades -->
-    <aside id="upgrade-panel">
-      <h2>Upgrades</h2>
-      <ul id="upgrade-list">
-        <!-- JS-rendered items -->
-      </ul>
-    </aside>
-  </div>
-
-  <!-- Footer -->
-  <footer id="footer">
+  </div>  <!-- Footer -->  <footer id="footer">
     <span>Collidle © 2025</span>
     <a href="https://github.com/yourusername/collidle" target="_blank">Source Code</a>
-    <!-- Collapse button is inserted via JS -->
   </footer>
 </body>
 </html>
