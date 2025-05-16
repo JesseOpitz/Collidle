@@ -1,4 +1,4 @@
-// === GLOBAL GAME STATE === let gameState = { mass: 0, darkEnergy: 0, upgrades: {}, availableUpgrades: [], particles: [], lastUpdate: Date.now() };
+// === GLOBAL GAME STATE === let gameState = { mass: 0, darkEnergy: 0, upgrades: {}, availableUpgrades: [], particles: [], lastUpdate: Date.now(), hasPrestiged: false };
 
 const MASS_PER_CLICK = 10; const CANVAS = document.getElementById('space-canvas'); const CTX = CANVAS.getContext('2d'); const CENTER = { x: CANVAS.width / 2, y: CANVAS.height / 2 };
 
@@ -35,11 +35,9 @@ function clearCanvas() { CTX.clearRect(0, 0, CANVAS.width, CANVAS.height); }
 
 function drawCore() { CTX.beginPath(); CTX.fillStyle = '#ffffff'; CTX.arc(CENTER.x, CENTER.y, 15, 0, Math.PI * 2); CTX.fill(); }
 
-// === UI === function setupUI() { document.getElementById('fire-btn').addEventListener('click', () => { const angle = Math.random() * Math.PI * 2; const radius = CANVAS.width / 2 + 50; const x = CENTER.x + Math.cos(angle) * radius; const y = CENTER.y + Math.sin(angle) * radius; const dx = (CENTER.x - x) / 60; const dy = (CENTER.y - y) / 60; gameState.particles.push(new Particle(x, y, dx, dy)); });
+// === UI === function setupUI() { CANVAS.addEventListener('click', () => { const angle = Math.random() * Math.PI * 2; const radius = CANVAS.width / 2 + 50; const x = CENTER.x + Math.cos(angle) * radius; const y = CENTER.y + Math.sin(angle) * radius; const dx = (CENTER.x - x) / 60; const dy = (CENTER.y - y) / 60; gameState.particles.push(new Particle(x, y, dx, dy)); }); }
 
-document.getElementById('toggle-upgrades').addEventListener('click', () => { const panel = document.getElementById('upgrade-panel'); panel.classList.toggle('visible'); }); }
-
-function updateMassDisplay() { document.getElementById('mass-display').textContent = formatMass(gameState.mass); document.getElementById('dark-energy-display').textContent = gameState.darkEnergy; }
+function updateMassDisplay() { document.getElementById('mass-display').textContent = formatMass(gameState.mass); }
 
 // === PASSIVE PARTICLE SPAWN === function spawnPassiveParticle() { let spawnRate = 0.02 + getUpgradeLevel('magnetism') * 0.002; if (Math.random() < spawnRate) { const angle = Math.random() * Math.PI * 2; const radius = CANVAS.width / 2 + 80; const x = CENTER.x + Math.cos(angle) * radius; const y = CENTER.y + Math.sin(angle) * radius; const speedMod = 180 - getUpgradeLevel('spin') * 5; const dx = (CENTER.x - x) / speedMod; const dy = (CENTER.y - y) / speedMod; gameState.particles.push(new Particle(x, y, dx, dy, true)); } }
 
@@ -50,16 +48,10 @@ gameState.availableUpgrades.forEach(upg => { const level = getUpgradeLevel(upg.i
 const li = document.createElement('li');
 li.className = 'upgrade-item';
 li.dataset.id = upg.id;
-
-li.innerHTML = `
-  <div class="upgrade-name">${upg.name} (Lv ${level})</div>
-  <div class="upgrade-cost">Cost: ${formatMass(cost)}</div>
-  <div class="upgrade-desc">${upg.description}</div>
-`;
+li.textContent = `${upg.name} (Lv ${level})`;
 
 if (gameState.mass >= cost && level < upg.maxLevel) {
   li.classList.add('can-afford');
-  li.style.cursor = 'pointer';
   li.addEventListener('click', () => purchaseUpgrade(upg));
 } else {
   li.style.opacity = 0.5;
@@ -76,6 +68,8 @@ function calculateUpgradeCost(upg, level) { return Math.floor(upg.baseCost * Mat
 function getUpgradeLevel(id) { return gameState.upgrades[id] || 0; }
 
 // === SAVE SYSTEM === function loadGame() { const save = JSON.parse(localStorage.getItem('collidle-save')); if (save) { Object.assign(gameState, save); }
+
+if (gameState.darkEnergy > 0) { gameState.hasPrestiged = true; }
 
 handleOfflineProgress(); updateMassDisplay(); }
 
