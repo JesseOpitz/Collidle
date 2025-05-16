@@ -9,10 +9,11 @@
   <script defer src="save/autosave.js"></script>
   <script defer src="game.js"></script>
   <script defer src="tutorial/onboarding.js"></script>
+  <script defer src="prestige.js"></script>
 </head>
 <body>
   <div id="game-container">
-    <!-- Header / HUD -->
+    <!-- HUD -->
     <header id="hud">
       <div class="hud-section">
         <span class="hud-label">Mass:</span>
@@ -24,17 +25,17 @@
       </div>
     </header>
 
-    <!-- Game Canvas Area -->
+    <!-- Game Canvas -->
     <main id="game-space">
       <canvas id="space-canvas" width="800" height="600"></canvas>
       <button id="fire-btn" title="Tap to launch a particle">Launch Particle</button>
     </main>
 
-    <!-- Upgrade Panel -->
+    <!-- Upgrades -->
     <aside id="upgrade-panel">
       <h2>Upgrades</h2>
       <ul id="upgrade-list">
-        <!-- Populated dynamically -->
+        <!-- JS-rendered items -->
       </ul>
     </aside>
   </div>
@@ -43,6 +44,7 @@
   <footer id="footer">
     <span>Collidle © 2025</span>
     <a href="https://github.com/yourusername/collidle" target="_blank">Source Code</a>
+    <!-- Collapse button is inserted via JS -->
   </footer>
 </body>
 </html>
