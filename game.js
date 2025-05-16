@@ -2,7 +2,7 @@
 let gameState = {
   mass: 0,
   darkEnergy: 0,
-  upgrades: {}, // { upgradeId: level }
+  upgrades: {},
   availableUpgrades: [],
   particles: [],
   lastUpdate: Date.now()
@@ -20,13 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
   setupUI();
   startGameLoop();
 
-  // Load upgrades from JSON
   fetch('data/upgrades.json')
     .then(response => response.json())
     .then(data => {
       gameState.availableUpgrades = data;
       renderUpgrades();
     });
+
+  startTutorial();
+  setupPrestigeButton();
 });
 
 // === PARTICLE CLASS ===
@@ -55,7 +57,10 @@ class Particle {
   checkCollision() {
     const dist = Math.hypot(this.x - CENTER.x, this.y - CENTER.y);
     if (dist < 15) {
-      const multiplier = 1 + (getUpgradeLevel('density') * 0.1);
+      const multiplier =
+        1 +
+        (getUpgradeLevel('density') * 0.1) +
+        (gameState.darkEnergy * 0.05);
       gameState.mass += MASS_PER_CLICK * multiplier;
       updateMassDisplay();
       return true;
@@ -123,8 +128,9 @@ function spawnPassiveParticle() {
     const radius = CANVAS.width / 2 + 80;
     const x = CENTER.x + Math.cos(angle) * radius;
     const y = CENTER.y + Math.sin(angle) * radius;
-    const dx = (CENTER.x - x) / (180 - getUpgradeLevel('spin') * 5);
-    const dy = (CENTER.y - y) / (180 - getUpgradeLevel('spin') * 5);
+    const speedMod = 180 - getUpgradeLevel('spin') * 5;
+    const dx = (CENTER.x - x) / speedMod;
+    const dy = (CENTER.y - y) / speedMod;
     gameState.particles.push(new Particle(x, y, dx, dy, true));
   }
 }
@@ -167,6 +173,7 @@ function purchaseUpgrade(upg) {
     gameState.upgrades[upg.id] = level + 1;
     updateMassDisplay();
     renderUpgrades();
+    saveGame();
   }
 }
 
@@ -186,11 +193,11 @@ function loadGame() {
   }
 
   handleOfflineProgress();
+  updateMassDisplay();
 }
 
 function saveGame() {
   localStorage.setItem('collidle-save', JSON.stringify(gameState));
 }
 
-// Manual hook
 window.saveGame = saveGame;
