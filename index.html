@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collidle</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="utils/formatter.js"></script>
+  <script defer src="save/autosave.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Header / HUD -->
+    <header id="hud">
+      <div class="hud-section">
+        <span class="hud-label">Mass:</span>
+        <span id="mass-display">0 ag</span>
+      </div>
+      <div class="hud-section">
+        <span class="hud-label">Dark Energy:</span>
+        <span id="dark-energy-display">0</span>
+      </div>
+    </header>
+
+    <!-- Game Canvas Area -->
+    <main id="game-space">
+      <canvas id="space-canvas" width="800" height="600"></canvas>
+      <button id="fire-btn" title="Tap to launch a particle">Launch Particle</button>
+    </main>
+
+    <!-- Upgrade Panel -->
+    <aside id="upgrade-panel">
+      <h2>Upgrades</h2>
+      <ul id="upgrade-list">
+        <!-- Populated dynamically by game.js -->
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Footer / Debug or Branding -->
+  <footer id="footer">
+    <span>Collidle © 2025</span>
+    <a href="https://github.com/yourusername/collidle" target="_blank">Source Code</a>
+  </footer>
+</body>
+</html>
