@@ -1,145 +1,48 @@
-/* Global Reset & Fonts */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collidle</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="utils/formatter.js"></script>
+  <script defer src="save/autosave.js"></script>
+  <script defer src="game.js"></script>
+  <script defer src="tutorial/onboarding.js"></script>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Header / HUD -->
+    <header id="hud">
+      <div class="hud-section">
+        <span class="hud-label">Mass:</span>
+        <span id="mass-display">0 ag</span>
+      </div>
+      <div class="hud-section">
+        <span class="hud-label">Dark Energy:</span>
+        <span id="dark-energy-display">0</span>
+      </div>
+    </header>
 
-body {
-  background: radial-gradient(ellipse at center, #000010, #000000);
-  color: #FFFFFF;
-  overflow: hidden;
-}
+    <!-- Game Canvas Area -->
+    <main id="game-space">
+      <canvas id="space-canvas" width="800" height="600"></canvas>
+      <button id="fire-btn" title="Tap to launch a particle">Launch Particle</button>
+    </main>
 
-#game-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-}
+    <!-- Upgrade Panel -->
+    <aside id="upgrade-panel">
+      <h2>Upgrades</h2>
+      <ul id="upgrade-list">
+        <!-- Populated dynamically -->
+      </ul>
+    </aside>
+  </div>
 
-/* HUD Styles */
-#hud {
-  display: flex;
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 10px 20px;
-  font-size: 1.2em;
-  z-index: 2;
-}
-
-.hud-section {
-  display: flex;
-  gap: 8px;
-}
-
-.hud-label {
-  font-weight: bold;
-  color: #00d8ff;
-}
-
-/* Main Game Space */
-#game-space {
-  flex: 1;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-#space-canvas {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: radial-gradient(circle, #101020 20%, #000000 100%);
-}
-
-/* Fire Button */
-#fire-btn {
-  position: absolute;
-  bottom: 20px;
-  padding: 12px 24px;
-  background: #00d8ff;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1em;
-  cursor: pointer;
-  z-index: 2;
-  transition: transform 0.1s ease;
-}
-
-#fire-btn:active {
-  transform: scale(0.95);
-}
-
-/* Upgrade Panel */
-#upgrade-panel {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: 280px;
-  max-height: 80vh;
-  background: rgba(0, 0, 0, 0.85);
-  border-left: 2px solid #00d8ff;
-  overflow-y: auto;
-  padding: 16px;
-  z-index: 2;
-}
-
-#upgrade-panel h2 {
-  margin-bottom: 12px;
-  font-size: 1.4em;
-}
-
-#upgrade-list {
-  list-style: none;
-}
-
-.upgrade-item {
-  margin-bottom: 12px;
-  padding: 10px;
-  background: #111;
-  border: 1px solid #00d8ff;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.upgrade-item:hover {
-  background: #222;
-}
-
-.upgrade-name {
-  font-weight: bold;
-  color: #00d8ff;
-}
-
-.upgrade-cost {
-  font-size: 0.9em;
-  color: #bbb;
-}
-
-/* Footer */
-#footer {
-  text-align: center;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.6);
-  font-size: 0.8em;
-  color: #888;
-}
-
-/* Responsive Support */
-@media (max-width: 768px) {
-  #upgrade-panel {
-    width: 100%;
-    top: auto;
-    bottom: 0;
-    border-left: none;
-    border-top: 2px solid #00d8ff;
-  }
-
-  #fire-btn {
-    bottom: 80px;
-  }
-}
+  <!-- Footer -->
+  <footer id="footer">
+    <span>Collidle © 2025</span>
+    <a href="https://github.com/yourusername/collidle" target="_blank">Source Code</a>
+  </footer>
+</body>
+</html>
