@@ -1,20 +1,15 @@
-// === FORMATTER UTILITY ===
+// === MASS FORMATTER ===
 
-// SI mass units for idle scaling
 const UNITS = [
-  'ag', 'fg', 'pg', 'ng', 'μg', 'mg', 'g', 'kg',
-  'Mg', 'Gg', 'Tg', 'Pg', 'Eg', 'Zg', 'Yg', 'Xg', 'Ng', 'Og', 'Qg'
+  'ag', 'fg', 'pg', 'ng', 'μg', 'mg', 'g',
+  'kg', 'Mg', 'Gg', 'Tg', 'Pg', 'Eg', 'Zg', 'Yg'
 ];
 
-// 1g = 1e18ag, so we start at attograms
-const STEP = 1000;
-
 function formatMass(mass) {
-  let unitIndex = 0;
-  while (mass >= STEP && unitIndex < UNITS.length - 1) {
-    mass /= STEP;
-    unitIndex++;
+  let index = 0;
+  while (mass >= 1000 && index < UNITS.length - 1) {
+    mass /= 1000;
+    index++;
   }
-
-  return `${mass.toFixed(2)} ${UNITS[unitIndex]}`;
+  return `${mass.toFixed(2)} ${UNITS[index]}`;
 }
